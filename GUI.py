@@ -83,7 +83,7 @@ class FreeFormDeformationWidget(QWidget):
             if is_ffd_input_win_img:
                 # using win img as the input of FFD
                 new_ffd_output = compute_warped_img((self.current_mesh - self.mesh_spacing),
-                                                    self.win_img,
+                                                    resize_image(self.original_img, (self.win_img_size, self.win_img_size)),
                                                     self.mesh_spacing,
                                                     iter_num, lr)
             else:
@@ -178,11 +178,6 @@ class FreeFormDeformationWidget(QWidget):
     def mouseReleaseEvent(self, event):
         """
         update control point original_mesh and warped image for the last time, and deactivate deformation
-        Args:
-            event:
-
-        Returns:
-
         """
         if event.button() != Qt.LeftButton:
             return
@@ -405,9 +400,9 @@ class MainWidget(QWidget):
         """
         for i in range(8):
             if i + 2 == int(q.text()):
-                self.speed[i].setChecked(True)
+                self.mesh_size_opts[i].setChecked(True)
             else:
-                self.speed[i].setChecked(False)
+                self.mesh_size_opts[i].setChecked(False)
         self.ffd_widget.reset_img(int(q.text()))
 
         img_pil = Image.fromarray(255 * np.ones((self.ffd_widget.win_img_size, self.ffd_widget.win_img_size))).convert(
