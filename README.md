@@ -47,6 +47,12 @@ Try running the following after setting working directory:
 ```sh
 python GUI.py
 ```
+## Acknowledgments
+
+We would like to thank Yuncheng Zhou (master student in the School of Data Science at Fudan) for his instruction in FFD algorithms.
+
+We would like to thank the Python library [Manim](https://github.com/3b1b/manim). We modified the source codes it provides for customizing mathematical animations.
+
 ## License
 
 This repository is under the MIT license.
