@@ -1,4 +1,4 @@
-<img src="README.assets/GUI_image.png" alt="GUI_image" style="zoom:30%;" />
+<img src="README.assets/GUI_image.png" alt="GUI_image" style="zoom:20%;" />
 
 # Free Form Deformation (FFD) & Sketch Detection
 
