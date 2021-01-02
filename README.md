@@ -29,17 +29,38 @@ We strongly recommend using Anaconda. You may follow the following steps:
 Prerequisite information can be found in `requirements.txt `. You may use pip to install them:
 
 ```bash
-python3 -m pip install -r requirements.txt 
-# For faster installation, Chinese users may use:
-#python3 -m pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+python -m pip install -r requirements.txt
+# For faster installation, Chinese users may add the "-i" option when runing pip:
+# python3 -m pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-Sometimes, Mac OS users may encounter an error `Failed building wheel for pycairo`. This is a problem related to the installation of pycairo rather than our project. A typical solution is to install pycairo via conda:
+## Troubleshooting
 
-```
+#### 1. `Failed building wheel for pycairo`
+
+This error may occur while you are installing Pycairo by runing `python -m pip install -r requirements.txt`. This is a problem related to the installation of Pycairo rather than our software. A typical solution is to install pycairo via conda:
+
+```bash
 # Reference: https://anaconda.org/conda-forge/pycairo
 conda install -c conda-forge pycairo
 ```
+
+#### 2. `Class QMacAutoReleasePoolTracker is implemented in both ...`
+
+This error usually occurs when running our software on Mac OS. It is due to the library conflicts between OpenCV and PyQT5. To solve this problem, first uninstall current OpenCV:
+
+```bash
+pip uninstall opencv-python
+# Or, you may need to try this: pip uninstall opencv-contrib-python
+```
+
+Then, install the headless version:
+
+```
+pip install opencv-contrib-python-headless
+```
+
+That is one of the reasons why we recommend creating a new environment using Anaconda.
 
 ## Using Software
 
