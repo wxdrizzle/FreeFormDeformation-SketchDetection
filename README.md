@@ -38,7 +38,7 @@ python -m pip install -r requirements.txt
 
 #### 1. `Failed building wheel for pycairo`
 
-This error may occur while you are installing Pycairo by runing `python -m pip install -r requirements.txt`. This is a problem related to the installation of Pycairo rather than our software. A typical solution is to install pycairo via conda:
+This error may occur while you are installing Pycairo by runing `python -m pip install -r requirements.txt`. This is a problem related to the installation of Pycairo rather than our software. A typical solution is to install Pycairo via conda:
 
 ```bash
 # Reference: https://anaconda.org/conda-forge/pycairo
