@@ -6,6 +6,13 @@ Authors: Xin Wang, Xiaoyu Zhou, Danran Chen
 
 This repository contains the final project of the authors in the course Data Visualization (2020 Fall) at Fudan University.
 
+## Highlights
+
+- We implement an accelerated version of the FFD algorithm so as to warp images **in real time**, in which a reverse mapping takes only **0.015 seconds** and a deformation takes only **0.1 seconds** on i5-8279U@2.4GHz without GPU acceleration.
+- We offer **four types of animations** for space transformation visualization, using the [Manim](https://github.com/3b1b/manim) library.
+- We implement **six types of edge detection** algorithms, i.e., Sobel, Canny, Laplacian, LoG, DoG, and XDoG, for sketch generation.
+- All of our algorithms are implemented directly using Numpy, Pytorch (for computing derivatives automatically) and other libraries at the same level, rather than some professional image processing libraries like OpenCV, which provide too many black-box functions.
+
 ## Installation
 
 The software is verified to be operational on: 
