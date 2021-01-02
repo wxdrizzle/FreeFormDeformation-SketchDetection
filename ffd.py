@@ -14,6 +14,16 @@ def torch_Bspline(uv, kl):
 
 
 def torch_transformation(pos, mesh, delta):
+    """
+    compute point positions after transformation defined by mesh
+    Args:
+        pos: 2xnxn array, denoting positions of points, in which pos[:, i, j] is the 2D coordinate of point (i,j)
+        mesh: 2xmxm array, denoting the control point mesh, in which mesh[:, i, j] is the 2D coordinate of control point (i,j)
+        delta: mesh spacing
+
+    Returns:
+        2xnxn array, point positions after transformation
+    """
     pos_reg = pos / delta
     pos_floor = pos_reg.floor().long()
     uv = pos_reg - pos_floor
@@ -28,6 +38,15 @@ def torch_transformation(pos, mesh, delta):
 
 
 def torch_interpolation(pos, img):
+    """
+    compute the bilinear interpolation result of points in an image
+    Args:
+        pos: 2xnxn array, point positions as the same in torch_transformation
+        img: given image
+
+    Returns:
+
+    """
     pos_floor = pos.floor().long()
     uv = pos - pos_floor
     ij = pos_floor
@@ -41,12 +60,16 @@ def torch_interpolation(pos, img):
 
 
 def reverse_mapping(img, mesh, delta):
+    # st = time.time()
     mesh = torch.transpose(mesh,1,2)
     pixel_grid = torch.stack(torch.meshgrid(torch.arange(img.shape[0]), torch.arange(img.shape[0])))
-    return torch_interpolation(torch_transformation(pixel_grid, mesh, delta), img)
+    result = torch_interpolation(torch_transformation(pixel_grid, mesh, delta), img)
+    # print(time.time()-st)
+    return result
 
 
-def compute_warped_img(mesh_trans, img, delta, iter_num=5, lr=40):
+def compute_warped_img(mesh_trans, img, delta, iter_num=40, lr=5):
+    # st = time.time()
     img = torch.tensor(img)
     mesh_trans = torch.tensor(mesh_trans)
     result = (128 * torch.ones_like(img)).float().requires_grad_(True)
@@ -58,7 +81,7 @@ def compute_warped_img(mesh_trans, img, delta, iter_num=5, lr=40):
         ssd.backward()
         opt.step()
     result = np.clip(result.detach().numpy(), 0, 255)
-
+    # print(time.time()-st)
     return result
 
 
@@ -70,7 +93,7 @@ def resize_image(img, size):
 
 
 if __name__ == "__main__":
-    img = array(Image.open("lena_color.gif").convert("RGB"))
+    img = array(Image.open("test.jpeg").convert("RGB"))
     img_size = img.shape[0]
     img = img[0:img_size:4, 0:img_size:4]
     img_size = img.shape[0]
@@ -83,7 +106,8 @@ if __name__ == "__main__":
         for j in range(mesh_size + 3):
             mesh[:, i, j] = [(i - 1) * delta, (j - 1) * delta]
 
-    mesh_trans = mesh + 0.2 * delta / 5 * np.random.randn(np.size(mesh, 0), np.size(mesh, 1), np.size(mesh, 2))
+    mesh_trans = mesh + 0. * delta * np.random.randn(np.size(mesh, 0), np.size(mesh, 1), np.size(mesh, 2))
+    mesh_trans[:, 3, 3] += 0.6 * delta
     mesh_trans = torch.tensor(mesh_trans)
 
     img = torch.tensor(img)
@@ -93,16 +117,10 @@ if __name__ == "__main__":
 
     pixel_grid = torch.stack(torch.meshgrid(torch.arange(img_size), torch.arange(img_size)))
 
-
-    diff = torch_transformation(pixel_grid, mesh_trans, delta)
-
-    plt.scatter(diff[0],diff[1])
-    plt.show()
-
     result = (128 * torch.ones_like(img)).float().requires_grad_(True)
-    opt = torch.optim.Adam([result], lr=40)
+    opt = torch.optim.Adam([result], lr=5)
     st = time.time()
-    for iter in range(5):
+    for iter in range(40):
         img_cycled = reverse_mapping(result.clamp(0, 255), mesh_trans, delta)
         ssd = ((img_cycled - img) ** 2).mean()
         opt.zero_grad()
