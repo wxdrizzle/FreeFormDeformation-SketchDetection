@@ -6,7 +6,7 @@ Authors: Xin Wang, Xiaoyu Zhou, Danran Chen
 
 This repository contains the final project of the authors in the course Data Visualization (2020 Fall) at Fudan University.
 
-[Report PDF](https://github.com/lsDrizzle/FreeFormDeformation-SketchDetection/blob/main/%E5%9B%BE%E5%83%8F%E5%AE%9E%E6%97%B6%E9%9D%9E%E5%88%9A%E6%80%A7%E5%BD%A2%E5%8F%98%E5%92%8C%E8%8D%89%E5%9B%BE%E7%94%9F%E6%88%90.pdf)   [Demo Video](https://github.com/lsDrizzle/FreeFormDeformation-SketchDetection/blob/main/GUI%E6%BC%94%E7%A4%BA.mov)
+[Report PDF](https://github.com/lsDrizzle/FreeFormDeformation-SketchDetection/blob/main/%E5%9B%BE%E5%83%8F%E5%AE%9E%E6%97%B6%E9%9D%9E%E5%88%9A%E6%80%A7%E5%BD%A2%E5%8F%98%E5%92%8C%E8%8D%89%E5%9B%BE%E7%94%9F%E6%88%90.pdf)   &   [Demo Video](https://github.com/lsDrizzle/FreeFormDeformation-SketchDetection/blob/main/GUI%E6%BC%94%E7%A4%BA.mov)
 
 ## Highlights
 
